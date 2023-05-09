@@ -26,7 +26,6 @@
 
 #include <config.h>
 
-#include <errno.h>
 #include <libssh2.h>
 #include <libssh2_sftp.h>
 
