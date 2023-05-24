@@ -26,6 +26,8 @@
 
 #include <config.h>
 
+#include <errno.h>              /* ENOENT, EACCES */
+
 #include <libssh2.h>
 #include <libssh2_sftp.h>
 
