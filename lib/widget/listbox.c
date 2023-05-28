@@ -365,7 +365,7 @@ listbox_key (WListbox * l, int key)
 
 /* Listbox item adding function */
 static inline void
-listbox_append_item (WListbox * l, WLEntry * e, listbox_append_t pos)
+listbox_add_entry (WListbox * l, WLEntry * e, listbox_append_t pos)
 {
     if (l->list == NULL)
     {
@@ -824,7 +824,7 @@ listbox_add_item (WListbox * l, listbox_append_t pos, int hotkey, const char *te
     entry->free_data = free_data;
     entry->hotkey = hotkey;
 
-    listbox_append_item (l, entry, pos);
+    listbox_add_entry (l, entry, pos);
 
     return entry->text;
 }
