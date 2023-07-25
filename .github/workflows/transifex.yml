@@ -1,9 +1,9 @@
 name: Transifex
 
 on:
-  push:
-    branches:
-      - master
+#  push:
+#    branches:
+#      - master
 
 jobs:
   transifex-upload:
