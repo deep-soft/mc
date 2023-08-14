@@ -28,6 +28,17 @@
  * \brief Source: Virtual File System: GNU Tar file system
  */
 
+/*
+ * Avoid following error:
+ *   comparison of unsigned expression < 0 is always false [-Werror=type-limits]
+ *
+ * https://www.boost.org/doc/libs/1_55_0/libs/integer/test/cstdint_test.cpp
+ *   We can't suppress this warning on the command line as not all GCC versions support -Wno-type-limits
+ */
+#if defined(__GNUC__) && (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 4))
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#endif
+
 #include <config.h>
 
 #include <ctype.h>              /* isdigit() */
@@ -657,6 +668,7 @@ pax_decode_header (tar_super_t * archive, struct tar_sparse_file *file)
         char nbuf[UINTMAX_STRSIZE_BOUND];
         union block *blk;
         char *p;
+        size_t sparse_map_len;
         size_t i;
         off_t start;
 
@@ -681,7 +693,9 @@ pax_decode_header (tar_super_t * archive, struct tar_sparse_file *file)
         else
             g_array_set_size (file->stat_info->sparse_map, u);
 
-        for (i = 0; i < u; i++)
+        sparse_map_len = u;
+
+        for (i = 0; i < sparse_map_len; i++)
         {
             struct sp_array sp;
 
@@ -694,7 +708,7 @@ pax_decode_header (tar_super_t * archive, struct tar_sparse_file *file)
             sp.offset = u;
             COPY_BUF (archive, blk, nbuf, p);
             if (!decode_num (&u, nbuf, TYPE_MAXIMUM (size_t)) || INT_ADD_OVERFLOW (sp.offset, u)
-                || file->stat_info->stat.st_size < sp.offset + u)
+                || (uintmax_t) file->stat_info->stat.st_size < sp.offset + u)
             {
                 /* malformed sparse archive member */
                 return FALSE;
