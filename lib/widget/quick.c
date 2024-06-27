@@ -1,7 +1,7 @@
 /*
    Widget based utility functions.
 
-   Copyright (C) 1994-2023
+   Copyright (C) 1994-2024
    Free Software Foundation, Inc.
 
    Authors:
@@ -68,7 +68,7 @@ typedef struct
 /* --------------------------------------------------------------------------------------------- */
 
 static WInput *
-quick_create_input (int y, int x, const quick_widget_t * qw)
+quick_create_input (int y, int x, const quick_widget_t *qw)
 {
     WInput *in;
 
@@ -84,7 +84,7 @@ quick_create_input (int y, int x, const quick_widget_t * qw)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-quick_create_labeled_input (GArray * widgets, int *y, int x, quick_widget_t * quick_widget,
+quick_create_labeled_input (GArray *widgets, int *y, int x, quick_widget_t *quick_widget,
                             int *width)
 {
     quick_widget_item_t in, label;
@@ -161,7 +161,7 @@ quick_create_labeled_input (GArray * widgets, int *y, int x, quick_widget_t * qu
 /* --------------------------------------------------------------------------------------------- */
 
 int
-quick_dialog_skip (quick_dialog_t * quick_dlg, int nskip)
+quick_dialog_skip (quick_dialog_t *quick_dlg, int nskip)
 {
     int len;
     int blen = 0;

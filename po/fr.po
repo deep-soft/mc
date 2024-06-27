@@ -12,15 +12,15 @@
 # Slava Zanko <slavazanko@gmail.com>, 2011
 # 4a14a73d523224463300dea5e0502458_3dab472, 2012
 # Towinet, 2017
-# Wallon Wallon, 2022-2023
+# Wallon Wallon, 2022-2024
 # Yury V. Zaytsev <yury@shurup.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: https://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2023-08-06 15:50+0200\n"
+"POT-Creation-Date: 2024-06-02 12:47+0300\n"
 "PO-Revision-Date: 2010-12-29 10:19+0000\n"
-"Last-Translator: Wallon Wallon, 2022-2023\n"
+"Last-Translator: Wallon Wallon, 2022-2024\n"
 "Language-Team: French (http://app.transifex.com/mc/mc/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -574,29 +574,11 @@ msgstr "Obtention du fichier"
 msgid "Changes to file lost"
 msgstr "Les modifications du fichier sont perdus"
 
-#, c-format
-msgid "%s is not a directory\n"
-msgstr "%s n’est pas un répertoire\n"
-
-#, c-format
-msgid "Directory %s is not owned by you\n"
-msgstr "Vous n’êtes pas propriétaire du répertoire %s\n"
-
-#, c-format
-msgid "Cannot set correct permissions for directory %s\n"
-msgstr "Impossible de régler des droits corrects sur le répertoire %s\n"
-
-#, c-format
-msgid "Cannot create temporary directory %s: %s\n"
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary directory %s: %s.\n"
+"Temporary files will not be created\n"
 msgstr "Ne peut créer le répertoire temporaire %s : %s\n"
-
-#, c-format
-msgid "Temporary files will be created in %s\n"
-msgstr "Les fichiers temporaires seront crées dans %s\n"
-
-#, c-format
-msgid "Temporary files will not be created\n"
-msgstr "Les fichiers temporaires ne seront pas créés\n"
 
 msgid "Press any key to continue..."
 msgstr "Appuyez sur une touche pour continuer..."
@@ -751,29 +733,33 @@ msgid ""
 "                 errdhotfocus\n"
 "   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
 "   Popup menus:  pmenunormal, pmenusel, pmenutitle\n"
-"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace, "
+"editnonprintable,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
 "   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 msgstr ""
 "--colors KEYWORD={FORE},{BACK},{ATTR}:KEYWORD2=...\n"
-"{FORE}, {BACK} et {ATTR} peuvent être omis, et la valeur par défaut sera "
-"utilisée\n"
-"Mot clés :\n"
-"Global : errors, disabled, reverse, gauge, header\n"
-"input, inputmark, inputunchanged, commandlinemark\n"
-"bbarhotkey, bbarbutton, statusbar\n"
-"Affichage fichier: normal, selected, marked, markselect\n"
-"Boîtes de dialogue : dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
-"errdhotfocus\n"
-"Menus : menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
-"Menus popup : pmenunormal, pmenusel, pmenutitle\n"
-"Éditeur : editnormal, editbold, editmarked, editwhitespace,\n"
-"editlinestate, editbg, editframe, editframeactive\n"
-"editframedrag\n"
-"Visionneuse : viewnormal,viewbold, viewunderline, viewselected\n"
-"Aide : helpnormal, helpitalic, helpbold, helplink, helpslink\n"
+"\n"
+"{FORE}, {BACK} et {ATTR} peuvent être omis. La valeur par défaut sera "
+"utilisée.\n"
+"\n"
+" Mots-clés:\n"
+"   Global:       errors, disabled, reverse, gauge, header\n"
+"                 input, inputmark, inputunchanged, commandlinemark\n"
+"                 bbarhotkey, bbarbutton, statusbar\n"
+"   File display: normal, selected, marked, markselect\n"
+"   Dialog boxes: dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
+"                 errdhotfocus\n"
+"   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
+"   Popup menus:  pmenunormal, pmenusel, pmenutitle\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace, "
+"editnonprintable,\n"
+"                 editlinestate, editbg, editframe, editframeactive\n"
+"                 editframedrag\n"
+"   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
+"   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 
 #. TRANSLATORS: don't translate color names and attributes
 msgid ""
@@ -834,6 +820,10 @@ msgstr "Options du terminal"
 
 msgid "Arguments parse error!"
 msgstr "Erreur lors de l’analyse des arguments !"
+
+#, fuzzy
+msgid "MC is built without builtin editor."
+msgstr "Avec l’éditeur intégré"
 
 msgid "No arguments given to the viewer."
 msgstr "Aucun argument passé à la visionneuse."
@@ -1641,8 +1631,8 @@ msgstr ""
 "Un éditeur de text facile d’utilisation.\n"
 "écrit pour Midnight Commander."
 
-msgid "Copyright (C) 1996-2023 the Free Software Foundation"
-msgstr "Copyright (C) 1996-2023 the Free Software Foundation"
+msgid "Copyright (C) 1996-2024 the Free Software Foundation"
+msgstr "Copyright (C) 1996-2024 the Free Software Foundation"
 
 msgid "About"
 msgstr "À propos"
@@ -2770,6 +2760,22 @@ msgstr ""
 "Impossible d’obtenir les caractéristiques du fichier source « %s »\n"
 "%s"
 
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source file \"%s\"\n"
+"%s"
+msgstr ""
+"Impossible d’obtenir les caractéristiques du fichier source « %s »\n"
+"%s"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes of target file \"%s\"\n"
+"%s"
+msgstr ""
+"Impossible d’obtenir les caractéristiques du fichier cible « %s »\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot create special file \"%s\"\n"
@@ -2881,9 +2887,25 @@ msgstr ""
 "Impossible de fermer le fichier cible « %s »\n"
 "%s"
 
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes for target file \"%s\"\n"
+"%s"
+msgstr ""
+"Impossible d’obtenir les caractéristiques du fichier cible « %s »\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot stat source directory \"%s\"\n"
+"%s"
+msgstr ""
+"Impossible d’obtenir les caractéristiques du fichier source « %s »\n"
+"%s"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source directory \"%s\"\n"
 "%s"
 msgstr ""
 "Impossible d’obtenir les caractéristiques du fichier source « %s »\n"
@@ -3982,10 +4004,12 @@ msgstr "Le shell est toujours actif. Quitter tout de même ?"
 msgid "Warning: Cannot change to %s.\n"
 msgstr "Attention : ne peut aller à %s.\n"
 
-msgid "With builtin Editor and Aspell support"
+#, fuzzy
+msgid "With builtin editor and aspell support"
 msgstr "Avec un éditeur intégré et un support Aspell"
 
-msgid "With builtin Editor"
+#, fuzzy
+msgid "With builtin editor"
 msgstr "Avec l’éditeur intégré"
 
 msgid "With optional subshell support"
@@ -4189,68 +4213,30 @@ msgstr ""
 "Système de fichiers virtuel EXTFS :\n"
 "%s"
 
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong file name"
+msgstr ""
+"Système de fichier virtuel EXTFS :\n"
+"nom de fichier erroné"
+
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong archive name"
+msgstr ""
+"Système de fichier virtuel EXTFS :\n"
+"mauvais nom d’archive"
+
+msgid ""
+"EXTFS virtual file system:\n"
+"cannot build command"
+msgstr ""
+"Système de fichier virtuel EXTFS :\n"
+"impossible de construire la commande"
+
 #, c-format
 msgid "Warning: cannot open %s directory\n"
 msgstr "Avertissement : impossible d’ouvrir le répertoire %s\n"
-
-#, c-format
-msgid "fish: Disconnecting from %s"
-msgstr "fish : Déconnexion de %s"
-
-msgid "fish: Waiting for initial line..."
-msgstr "fish : attente de la première ligne..."
-
-msgid "Sorry, we cannot do password authenticated connections for now."
-msgstr ""
-"Désolé, nous ne pouvons pas faire de connexion authentifiée par mot de passe "
-"pour l’instant."
-
-#, c-format
-msgid "fish: Password is required for %s"
-msgstr "fish : mot de passe requis pour %s"
-
-msgid "fish: Sending password..."
-msgstr "fish : envoi du mot de passe..."
-
-msgid "fish: Sending initial line..."
-msgstr "fish : envoi de la ligne initiale..."
-
-msgid "fish: Handshaking version..."
-msgstr "fish : vérification des numéros de version..."
-
-msgid "fish: Getting host info..."
-msgstr "fish : récupère les informations de l’hôte..."
-
-#, c-format
-msgid "fish: Reading directory %s..."
-msgstr "fish : lecture du répertoire %s..."
-
-#, c-format
-msgid "%s: done."
-msgstr "%s : fait."
-
-#, c-format
-msgid "%s: failure"
-msgstr "%s : échec"
-
-#, c-format
-msgid "fish: store %s: sending command..."
-msgstr "fish : sauve %s : envoi de la commande..."
-
-msgid "fish: Local read failed, sending zeros"
-msgstr "fish : échec de lecture locale, envoie de zéros"
-
-msgid "fish: storing file"
-msgstr "fish: enregistrement du fichier"
-
-msgid "Aborting transfer..."
-msgstr "Abandon du transfert..."
-
-msgid "Error reported after abort."
-msgstr "Erreur rapportée après l’abandon."
-
-msgid "Aborted transfer would be successful."
-msgstr "Le transfert abandonné devrait avoir réussi."
 
 #, c-format
 msgid "ftpfs: Disconnecting from %s"
@@ -4361,6 +4347,14 @@ msgstr "(chdir d’abord)"
 
 msgid "ftpfs: failed; nowhere to fallback to"
 msgstr "ftpfs : échec ; nulle part où retomber"
+
+#, c-format
+msgid "%s: failure"
+msgstr "%s : échec"
+
+#, c-format
+msgid "%s: done."
+msgstr "%s : fait."
 
 msgid "ftpfs: storing file"
 msgstr "ftpfs : enregistrement du fichier"
@@ -4524,6 +4518,54 @@ msgstr "sftp : (Ctrl-G break) Listing... %s"
 
 msgid "sftp: Listing done."
 msgstr "sftp : listing effectué."
+
+#, c-format
+msgid "shell: Disconnecting from %s"
+msgstr "shell : Déconnexion de %s"
+
+msgid "shell: Waiting for initial line..."
+msgstr "shell : En attente de la ligne initiale..."
+
+msgid "Sorry, we cannot do password authenticated connections for now."
+msgstr ""
+"Désolé, nous ne pouvons pas faire de connexion authentifiée par mot de passe "
+"pour l’instant."
+
+#, c-format
+msgid "shell: Password is required for %s"
+msgstr "shell : Le mot de passe est nécessaire pour %s"
+
+msgid "shell: Sending password..."
+msgstr "shell : Envoi du mot de passe..."
+
+msgid "shell: Sending initial line..."
+msgstr "shell : Envoi de la ligne initiale..."
+
+msgid "shell: Getting host info..."
+msgstr "shell : Obtention d’informations sur l’hôte..."
+
+#, c-format
+msgid "shell: Reading directory %s..."
+msgstr "shell : Lecture du répertoire %s..."
+
+#, c-format
+msgid "shell: store %s: sending command..."
+msgstr "shell : stocker %s : envoi de la commande..."
+
+msgid "shell: Local read failed, sending zeros"
+msgstr "shell : Échec de la lecture locale, envoi de zéros"
+
+msgid "shell: storing file"
+msgstr "shell : stockage du fichier"
+
+msgid "Aborting transfer..."
+msgstr "Abandon du transfert..."
+
+msgid "Error reported after abort."
+msgstr "Erreur rapportée après l’abandon."
+
+msgid "Aborted transfer would be successful."
+msgstr "Le transfert abandonné devrait avoir réussi."
 
 msgid "Inconsistent tar archive"
 msgstr "Archive tar incohérente"
@@ -4741,3 +4783,23 @@ msgstr "Continuer à partir du début ?"
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr ""
 "Impossible de récupérer localement le fichier /ftp://some.host/editme.txt"
+
+#, c-format
+#~ msgid "%s is not a directory\n"
+#~ msgstr "%s n’est pas un répertoire\n"
+
+#, c-format
+#~ msgid "Directory %s is not owned by you\n"
+#~ msgstr "Vous n’êtes pas propriétaire du répertoire %s\n"
+
+#, c-format
+#~ msgid "Cannot set correct permissions for directory %s\n"
+#~ msgstr "Impossible de régler des droits corrects sur le répertoire %s\n"
+
+#, c-format
+#~ msgid "Temporary files will be created in %s\n"
+#~ msgstr "Les fichiers temporaires seront crées dans %s\n"
+
+#, c-format
+#~ msgid "Temporary files will not be created\n"
+#~ msgstr "Les fichiers temporaires ne seront pas créés\n"

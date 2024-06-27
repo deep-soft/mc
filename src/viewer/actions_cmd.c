@@ -2,7 +2,7 @@
    Internal file viewer for the Midnight Commander
    Callback function for some actions (hotkeys, menu)
 
-   Copyright (C) 1994-2023
+   Copyright (C) 1994-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -57,13 +57,13 @@
 #include "lib/charsets.h"
 #endif
 #include "lib/event.h"          /* mc_event_raise() */
-#include "lib/mcconfig.h"       /* mc_config_history_get() */
+#include "lib/mcconfig.h"       /* mc_config_history_get_recent_item() */
 
 #include "src/filemanager/layout.h"
 #include "src/filemanager/filemanager.h"        /* current_panel */
 #include "src/filemanager/ext.h"        /* regex_command_for() */
 
-#include "src/history.h"
+#include "src/history.h"        /* MC_HISTORY_SHARED_SEARCH */
 #include "src/file_history.h"   /* show_file_history() */
 #include "src/execute.h"
 #include "src/keymap.h"
@@ -85,7 +85,7 @@
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mcview_remove_ext_script (WView * view)
+mcview_remove_ext_script (WView *view)
 {
     if (view->ext_script != NULL)
     {
@@ -99,7 +99,7 @@ mcview_remove_ext_script (WView * view)
 
 /* Both views */
 static void
-mcview_search (WView * view, gboolean start_search)
+mcview_search (WView *view, gboolean start_search)
 {
     off_t want_search_start = view->search_start;
 
@@ -132,23 +132,19 @@ mcview_search (WView * view, gboolean start_search)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mcview_continue_search_cmd (WView * view)
+mcview_continue_search_cmd (WView *view)
 {
     if (view->last_search_string != NULL)
         mcview_search (view, FALSE);
     else
     {
         /* find last search string in history */
-        GList *history;
+        char *s;
 
-        history = mc_config_history_get (MC_HISTORY_SHARED_SEARCH);
-        if (history != NULL)
+        s = mc_config_history_get_recent_item (MC_HISTORY_SHARED_SEARCH);
+        if (s != NULL)
         {
-            /* FIXME: is it possible that history->data == NULL? */
-            view->last_search_string = (gchar *) history->data;
-            history->data = NULL;
-            history = g_list_first (history);
-            g_list_free_full (history, g_free);
+            view->last_search_string = s;
 
             if (mcview_search_init (view))
             {
@@ -200,7 +196,7 @@ mcview_hook (void *v)
 /* --------------------------------------------------------------------------------------------- */
 
 static cb_ret_t
-mcview_handle_editkey (WView * view, int key)
+mcview_handle_editkey (WView *view, int key)
 {
     struct hexedit_change_node *node;
     int byte_val = -1;
@@ -267,7 +263,7 @@ mcview_handle_editkey (WView * view, int key)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mcview_load_next_prev_init (WView * view)
+mcview_load_next_prev_init (WView *view)
 {
     if (mc_global.mc_run_mode != MC_RUN_VIEWER)
     {
@@ -321,7 +317,7 @@ mcview_load_next_prev_init (WView * view)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mcview_scan_for_file (WView * view, int direction)
+mcview_scan_for_file (WView *view, int direction)
 {
     int i;
 
@@ -341,7 +337,7 @@ mcview_scan_for_file (WView * view, int direction)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mcview_load_next_prev (WView * view, int direction)
+mcview_load_next_prev (WView *view, int direction)
 {
     dir_list *dir;
     int *dir_idx;
@@ -375,7 +371,7 @@ mcview_load_next_prev (WView * view, int direction)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mcview_load_file_from_history (WView * view)
+mcview_load_file_from_history (WView *view)
 {
     char *filename;
     int action;
@@ -399,18 +395,12 @@ mcview_load_file_from_history (WView * view)
 /* --------------------------------------------------------------------------------------------- */
 
 static cb_ret_t
-mcview_execute_cmd (WView * view, long command)
+mcview_execute_cmd (WView *view, long command)
 {
     int res = MSG_HANDLED;
 
     switch (command)
     {
-    case CK_Help:
-        {
-            ev_help_t event_data = { NULL, "[Internal File Viewer]" };
-            mc_event_raise (MCEVENT_GROUP_CORE, "help", &event_data);
-        }
-        break;
     case CK_HexMode:
         /* Toggle between hex view and text view */
         mcview_toggle_hex_mode (view);
@@ -574,7 +564,7 @@ mcview_execute_cmd (WView * view, long command)
 /* --------------------------------------------------------------------------------------------- */
 
 static long
-mcview_lookup_key (WView * view, int key)
+mcview_lookup_key (WView *view, int key)
 {
     if (view->mode_flags.hex)
         return keybind_lookup_keymap_command (view->hex_keymap, key);
@@ -585,7 +575,7 @@ mcview_lookup_key (WView * view, int key)
 /* --------------------------------------------------------------------------------------------- */
 /** Both views */
 static cb_ret_t
-mcview_handle_key (WView * view, int key)
+mcview_handle_key (WView *view, int key)
 {
     long command;
 
@@ -619,7 +609,7 @@ mcview_handle_key (WView * view, int key)
 /* --------------------------------------------------------------------------------------------- */
 
 static inline void
-mcview_resize (WView * view)
+mcview_resize (WView *view)
 {
     view->dpy_wrap_dirty = TRUE;
     mcview_compute_areas (view);
@@ -629,7 +619,7 @@ mcview_resize (WView * view)
 /* --------------------------------------------------------------------------------------------- */
 
 static gboolean
-mcview_ok_to_quit (WView * view)
+mcview_ok_to_quit (WView *view)
 {
     int r;
 
@@ -670,7 +660,7 @@ mcview_ok_to_quit (WView * view)
 /* --------------------------------------------------------------------------------------------- */
 
 cb_ret_t
-mcview_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *data)
+mcview_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *data)
 {
     WView *view = (WView *) w;
     cb_ret_t i;
@@ -758,7 +748,7 @@ mcview_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *
 /* --------------------------------------------------------------------------------------------- */
 
 cb_ret_t
-mcview_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *data)
+mcview_dialog_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *data)
 {
     WDialog *h = DIALOG (w);
     WView *view;

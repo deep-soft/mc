@@ -1,7 +1,7 @@
 /*
    Virtual File System: GNU Tar file system.
 
-   Copyright (C) 2023
+   Copyright (C) 2023-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -32,7 +32,6 @@
 
 #include <config.h>
 
-#include <ctype.h>              /* isspace() */
 #include <inttypes.h>           /* uintmax_t */
 #include <stdint.h>             /* UINTMAX_MAX, etc */
 
@@ -75,7 +74,7 @@ static char base64_map[1 + (unsigned char) (-1)];
 /* --------------------------------------------------------------------------------------------- */
 
 static gboolean
-tar_short_read (size_t status, tar_super_t * archive)
+tar_short_read (size_t status, tar_super_t *archive)
 {
     size_t left;                /* bytes left */
     char *more;                 /* pointer to next byte to read */
@@ -111,7 +110,7 @@ tar_short_read (size_t status, tar_super_t * archive)
 /* --------------------------------------------------------------------------------------------- */
 
 static gboolean
-tar_flush_read (tar_super_t * archive)
+tar_flush_read (tar_super_t *archive)
 {
     size_t status;
 
@@ -127,7 +126,7 @@ tar_flush_read (tar_super_t * archive)
 /**  Flush the current buffer from the archive.
  */
 static gboolean
-tar_flush_archive (tar_super_t * archive)
+tar_flush_archive (tar_super_t *archive)
 {
     record_start_block += record_end - archive->record_start;
     current_block = archive->record_start;
@@ -139,11 +138,15 @@ tar_flush_archive (tar_super_t * archive)
 /* --------------------------------------------------------------------------------------------- */
 
 static off_t
-tar_seek_archive (tar_super_t * archive, off_t size)
+tar_seek_archive (tar_super_t *archive, off_t size)
 {
     off_t start, offset;
     off_t nrec, nblk;
     off_t skipped;
+
+    /* If low level I/O is already at EOF, do not try to seek further. */
+    if (record_end < archive->record_start + blocking_factor)
+        return 0;
 
     skipped = (blocking_factor - (current_block - archive->record_start)) * BLOCKSIZE;
     if (size <= skipped)
@@ -182,6 +185,14 @@ tar_seek_archive (tar_super_t * archive, off_t size)
 
 /* --------------------------------------------------------------------------------------------- */
 /*** public functions ****************************************************************************/
+/* --------------------------------------------------------------------------------------------- */
+
+gboolean
+is_octal_digit (char c)
+{
+    return '0' <= c && c <= '7';
+}
+
 /* --------------------------------------------------------------------------------------------- */
 
 void
@@ -262,13 +273,13 @@ tar_from_header (const char *where0, size_t digs, char const *type, intmax_t min
         if (where == lim)
             return (-1);
 
-        if (!isspace ((unsigned char) *where))
+        if (!g_ascii_isspace (*where))
             break;
 
         where++;
     }
 
-    if (isodigit (*where))
+    if (is_octal_digit (*where))
     {
         char const *where1 = where;
         gboolean overflow = FALSE;
@@ -276,7 +287,7 @@ tar_from_header (const char *where0, size_t digs, char const *type, intmax_t min
         while (TRUE)
         {
             value += *where++ - '0';
-            if (where == lim || !isodigit (*where))
+            if (where == lim || !is_octal_digit (*where))
                 break;
             overflow |= value != (value << LG_8 >> LG_8);
             value <<= LG_8;
@@ -301,7 +312,7 @@ tar_from_header (const char *where0, size_t digs, char const *type, intmax_t min
             {
                 value += 7 - digit;
                 where++;
-                if (where == lim || !isodigit (*where))
+                if (where == lim || !is_octal_digit (*where))
                     break;
                 digit = *where - '0';
                 overflow |= value != (value << LG_8 >> LG_8);
@@ -373,7 +384,7 @@ tar_from_header (const char *where0, size_t digs, char const *type, intmax_t min
             value = -value;
     }
 
-    if (where != lim && *where != '\0' && !isspace ((unsigned char) *where))
+    if (where != lim && *where != '\0' && !g_ascii_isspace (*where))
         return (-1);
 
     if (value <= (negative ? minus_minval : maxval))
@@ -399,7 +410,7 @@ off_from_header (const char *p, size_t s)
  * Return NULL for EOF.
  */
 union block *
-tar_find_next_block (tar_super_t * archive)
+tar_find_next_block (tar_super_t *archive)
 {
     if (current_block == record_end)
     {
@@ -428,7 +439,7 @@ tar_find_next_block (tar_super_t * archive)
  * Indicate that we have used all blocks up thru @block.
  */
 gboolean
-tar_set_next_block_after (union block * block)
+tar_set_next_block_after (union block *block)
 {
     while (block >= current_block)
         current_block++;
@@ -446,7 +457,7 @@ tar_set_next_block_after (union block * block)
  * Compute and return the block ordinal at current_block.
  */
 off_t
-tar_current_block_ordinal (const tar_super_t * archive)
+tar_current_block_ordinal (const tar_super_t *archive)
 {
     return record_start_block + (current_block - archive->record_start);
 }
@@ -457,7 +468,7 @@ tar_current_block_ordinal (const tar_super_t * archive)
  * Skip over @size bytes of data in blocks in the archive.
  */
 gboolean
-tar_skip_file (tar_super_t * archive, off_t size)
+tar_skip_file (tar_super_t *archive, off_t size)
 {
     union block *x;
     off_t nblk;

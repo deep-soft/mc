@@ -1,7 +1,7 @@
 /*
    Extension dependent execution.
 
-   Copyright (C) 1994-2023
+   Copyright (C) 1994-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -114,7 +114,7 @@ static const char *default_group = "Default";
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-exec_cleanup_script (vfs_path_t * script_vpath)
+exec_cleanup_script (vfs_path_t *script_vpath)
 {
     if (script_vpath != NULL)
     {
@@ -126,7 +126,7 @@ exec_cleanup_script (vfs_path_t * script_vpath)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-exec_cleanup_file_name (const vfs_path_t * filename_vpath, gboolean has_changed)
+exec_cleanup_file_name (const vfs_path_t *filename_vpath, gboolean has_changed)
 {
     if (localfilecopy_vpath == NULL)
         return;
@@ -146,7 +146,7 @@ exec_cleanup_file_name (const vfs_path_t * filename_vpath, gboolean has_changed)
 /* --------------------------------------------------------------------------------------------- */
 
 static char *
-exec_get_file_name (const vfs_path_t * filename_vpath)
+exec_get_file_name (const vfs_path_t *filename_vpath)
 {
     if (!do_local_copy)
         return quote_func (vfs_path_get_last_path_str (filename_vpath), FALSE);
@@ -187,7 +187,7 @@ exec_expand_format (char symbol, gboolean is_result_quoted)
 /* --------------------------------------------------------------------------------------------- */
 
 static GString *
-exec_get_export_variables (const vfs_path_t * filename_vpath)
+exec_get_export_variables (const vfs_path_t *filename_vpath)
 {
     char *text;
     GString *export_vars_string;
@@ -235,7 +235,7 @@ exec_get_export_variables (const vfs_path_t * filename_vpath)
 /* --------------------------------------------------------------------------------------------- */
 
 static GString *
-exec_make_shell_string (const char *lc_data, const vfs_path_t * filename_vpath)
+exec_make_shell_string (const char *lc_data, const vfs_path_t *filename_vpath)
 {
     GString *shell_string;
     char lc_prompt[80] = "\0";
@@ -331,15 +331,19 @@ exec_make_shell_string (const char *lc_data, const vfs_path_t * filename_vpath)
                                 }
                             }
 
-                            if (!is_cd)
-                                g_string_append (shell_string, text);
-                            else
+                            if (text != NULL)
                             {
-                                strcpy (pbuffer, text);
-                                pbuffer = strchr (pbuffer, 0);
+                                if (!is_cd)
+                                    g_string_append (shell_string, text);
+                                else
+                                {
+                                    strcpy (pbuffer, text);
+                                    pbuffer = strchr (pbuffer, '\0');
+                                }
+
+                                g_free (text);
                             }
 
-                            g_free (text);
                             written_nonspace = TRUE;
                         }
                     }
@@ -365,7 +369,7 @@ exec_make_shell_string (const char *lc_data, const vfs_path_t * filename_vpath)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-exec_extension_view (void *target, char *cmd, const vfs_path_t * filename_vpath, int start_line)
+exec_extension_view (void *target, char *cmd, const vfs_path_t *filename_vpath, int start_line)
 {
     mcview_mode_flags_t def_flags = {
         /* *INDENT-OFF* */
@@ -402,7 +406,7 @@ exec_extension_view (void *target, char *cmd, const vfs_path_t * filename_vpath,
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-exec_extension_cd (WPanel * panel)
+exec_extension_cd (WPanel *panel)
 {
     char *q;
     vfs_path_t *p_vpath;
@@ -425,7 +429,7 @@ exec_extension_cd (WPanel * panel)
 /* --------------------------------------------------------------------------------------------- */
 
 static vfs_path_t *
-exec_extension (WPanel * panel, void *target, const vfs_path_t * filename_vpath,
+exec_extension (WPanel *panel, void *target, const vfs_path_t *filename_vpath,
                 const char *lc_data, int start_line)
 {
     GString *shell_string, *export_variables;
@@ -591,14 +595,17 @@ get_popen_information (const char *cmd_file, const char *args, char *buf, int bu
  */
 
 static int
-get_file_type_local (const vfs_path_t * filename_vpath, char *buf, int buflen)
+get_file_type_local (const vfs_path_t *filename_vpath, char *buf, int buflen)
 {
-    char *tmp;
-    int ret;
+    char *filename_quoted;
+    int ret = 0;
 
-    tmp = name_quote (vfs_path_get_last_path_str (filename_vpath), FALSE);
-    ret = get_popen_information (FILE_CMD, tmp, buf, buflen);
-    g_free (tmp);
+    filename_quoted = name_quote (vfs_path_get_last_path_str (filename_vpath), FALSE);
+    if (filename_quoted != NULL)
+    {
+        ret = get_popen_information (FILE_CMD, filename_quoted, buf, buflen);
+        g_free (filename_quoted);
+    }
 
     return ret;
 }
@@ -611,20 +618,30 @@ get_file_type_local (const vfs_path_t * filename_vpath, char *buf, int buflen)
 
 #ifdef HAVE_CHARSET
 static int
-get_file_encoding_local (const vfs_path_t * filename_vpath, char *buf, int buflen)
+get_file_encoding_local (const vfs_path_t *filename_vpath, char *buf, int buflen)
 {
-    char *tmp, *lang, *args;
-    int ret;
+    char *filename_quoted;
+    int ret = 0;
 
-    tmp = name_quote (vfs_path_get_last_path_str (filename_vpath), FALSE);
-    lang = name_quote (autodetect_codeset, FALSE);
-    args = g_strconcat (" -L", lang, " -i ", tmp, (char *) NULL);
+    filename_quoted = name_quote (vfs_path_get_last_path_str (filename_vpath), FALSE);
+    if (filename_quoted != NULL)
+    {
+        char *lang;
 
-    ret = get_popen_information ("enca", args, buf, buflen);
+        lang = name_quote (autodetect_codeset, FALSE);
+        if (lang != NULL)
+        {
+            char *args;
 
-    g_free (args);
-    g_free (lang);
-    g_free (tmp);
+            args = g_strdup_printf (" -L %s -i %s", lang, filename_quoted);
+            g_free (lang);
+
+            ret = get_popen_information ("enca", args, buf, buflen);
+            g_free (args);
+        }
+
+        g_free (filename_quoted);
+    }
 
     return ret;
 }
@@ -639,8 +656,8 @@ get_file_encoding_local (const vfs_path_t * filename_vpath, char *buf, int bufle
  */
 
 static gboolean
-regex_check_type (const vfs_path_t * filename_vpath, const char *ptr, gboolean case_insense,
-                  gboolean * have_type, GError ** mcerror)
+regex_check_type (const vfs_path_t *filename_vpath, const char *ptr, gboolean case_insense,
+                  gboolean *have_type, GError **mcerror)
 {
     gboolean found = FALSE;
 
@@ -878,8 +895,8 @@ flush_extension_file (void)
  */
 
 int
-regex_command_for (void *target, const vfs_path_t * filename_vpath, const char *action,
-                   vfs_path_t ** script_vpath)
+regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *action,
+                   vfs_path_t **script_vpath)
 {
     const char *filename;
     size_t filename_len;

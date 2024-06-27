@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: https://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2023-08-06 15:50+0200\n"
+"POT-Creation-Date: 2024-06-02 12:47+0300\n"
 "PO-Revision-Date: 2010-12-29 10:19+0000\n"
 "Last-Translator: Mantas Kriaučiūnas Baltix <mantas@akl.lt>, 2020\n"
 "Language-Team: Lithuanian (http://app.transifex.com/mc/mc/language/lt/)\n"
@@ -560,29 +560,11 @@ msgstr "Parsiunčiamas failas"
 msgid "Changes to file lost"
 msgstr "Failo pakeitimai prarasti"
 
-#, c-format
-msgid "%s is not a directory\n"
-msgstr "%s nėra aplankas\n"
-
-#, c-format
-msgid "Directory %s is not owned by you\n"
-msgstr "Aplankas %s jums nepriklauso\n"
-
-#, c-format
-msgid "Cannot set correct permissions for directory %s\n"
-msgstr " Nepavyko nustatyti reikiamų teisių aplankui %s\n"
-
-#, c-format
-msgid "Cannot create temporary directory %s: %s\n"
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary directory %s: %s.\n"
+"Temporary files will not be created\n"
 msgstr "Nepavyko sukurti laikino aplanko %s: %s\n"
-
-#, c-format
-msgid "Temporary files will be created in %s\n"
-msgstr "Laikinieji failai bus talpinami aplanke %s\n"
-
-#, c-format
-msgid "Temporary files will not be created\n"
-msgstr "Laikinieji failai nebus kuriami\n"
 
 msgid "Press any key to continue..."
 msgstr "Paspauskite bet kurį klavišą..."
@@ -734,7 +716,8 @@ msgid ""
 "                 errdhotfocus\n"
 "   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
 "   Popup menus:  pmenunormal, pmenusel, pmenutitle\n"
-"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace, "
+"editnonprintable,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
 "   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
@@ -787,6 +770,9 @@ msgid "Terminal options"
 msgstr "Terminalo parinktys"
 
 msgid "Arguments parse error!"
+msgstr ""
+
+msgid "MC is built without builtin editor."
 msgstr ""
 
 msgid "No arguments given to the viewer."
@@ -1589,7 +1575,7 @@ msgstr ""
 "Lengvas vartoti teksto redaktorius\n"
 "sukurtas Midnight Commander aplinkai."
 
-msgid "Copyright (C) 1996-2023 the Free Software Foundation"
+msgid "Copyright (C) 1996-2024 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -2664,6 +2650,22 @@ msgid ""
 "%s"
 msgstr ""
 
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source file \"%s\"\n"
+"%s"
+msgstr ""
+"Nepavyko pašalinti failo \"%s\"\n"
+"%s"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes of target file \"%s\"\n"
+"%s"
+msgstr ""
+"Nepavyko sukurti aplanko \"%s\"\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot create special file \"%s\"\n"
@@ -2751,11 +2753,27 @@ msgid ""
 "%s"
 msgstr ""
 
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes for target file \"%s\"\n"
+"%s"
+msgstr ""
+"Nepavyko sukurti aplanko \"%s\"\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot stat source directory \"%s\"\n"
 "%s"
 msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source directory \"%s\"\n"
+"%s"
+msgstr ""
+"Nepavyko sukurti aplanko \"%s\"\n"
+"%s"
 
 #, c-format
 msgid ""
@@ -3830,10 +3848,10 @@ msgstr "Aplinka vis dar aktyvi. Vis tiek išeiti?"
 msgid "Warning: Cannot change to %s.\n"
 msgstr "Įspėjimas: nepavyko įeiti į „%s“.\n"
 
-msgid "With builtin Editor and Aspell support"
+msgid "With builtin editor and aspell support"
 msgstr ""
 
-msgid "With builtin Editor"
+msgid "With builtin editor"
 msgstr ""
 
 msgid "With optional subshell support"
@@ -4030,66 +4048,24 @@ msgid ""
 "%s"
 msgstr ""
 
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong file name"
+msgstr ""
+
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong archive name"
+msgstr ""
+
+msgid ""
+"EXTFS virtual file system:\n"
+"cannot build command"
+msgstr ""
+
 #, c-format
 msgid "Warning: cannot open %s directory\n"
 msgstr "Įspėjimas: nepavyko pereiti į aplanką %s\n"
-
-#, c-format
-msgid "fish: Disconnecting from %s"
-msgstr "fish: atsijungiama nuo %s"
-
-msgid "fish: Waiting for initial line..."
-msgstr "fish: laukiama pradinės eilutės..."
-
-msgid "Sorry, we cannot do password authenticated connections for now."
-msgstr "Šiuo metu slaptažodžių apsaugotų prisijungimų atlikti negalima."
-
-#, c-format
-msgid "fish: Password is required for %s"
-msgstr ""
-
-msgid "fish: Sending password..."
-msgstr "fish: siunčiamas slaptažodis..."
-
-msgid "fish: Sending initial line..."
-msgstr "fish: siunčiama pradinė linija..."
-
-msgid "fish: Handshaking version..."
-msgstr "fish: derinamos versijos..."
-
-msgid "fish: Getting host info..."
-msgstr ""
-
-#, c-format
-msgid "fish: Reading directory %s..."
-msgstr "fish: atveriamas aplankas %s..."
-
-#, c-format
-msgid "%s: done."
-msgstr "%s: atlikta."
-
-#, c-format
-msgid "%s: failure"
-msgstr "%s: nepavyko"
-
-#, c-format
-msgid "fish: store %s: sending command..."
-msgstr "fish: „%s“ siuntimas: siunčiamas slaptažodis..."
-
-msgid "fish: Local read failed, sending zeros"
-msgstr "fish: vietinis skaitymas nepavyko, siunčiami nuliai"
-
-msgid "fish: storing file"
-msgstr ""
-
-msgid "Aborting transfer..."
-msgstr "Nutraukiamas siuntimas..."
-
-msgid "Error reported after abort."
-msgstr "Po nutraukties pranešta klaida."
-
-msgid "Aborted transfer would be successful."
-msgstr "Nutrauktas siuntimas būtų sėkmingas."
 
 #, c-format
 msgid "ftpfs: Disconnecting from %s"
@@ -4200,6 +4176,14 @@ msgstr "(keičiamas katalogas)"
 
 msgid "ftpfs: failed; nowhere to fallback to"
 msgstr "ftpfs: nepavyko; nėra kur grįžti"
+
+#, c-format
+msgid "%s: failure"
+msgstr "%s: nepavyko"
+
+#, c-format
+msgid "%s: done."
+msgstr "%s: atlikta."
 
 msgid "ftpfs: storing file"
 msgstr ""
@@ -4337,6 +4321,52 @@ msgstr ""
 
 msgid "sftp: Listing done."
 msgstr ""
+
+#, c-format
+msgid "shell: Disconnecting from %s"
+msgstr ""
+
+msgid "shell: Waiting for initial line..."
+msgstr ""
+
+msgid "Sorry, we cannot do password authenticated connections for now."
+msgstr "Šiuo metu slaptažodžių apsaugotų prisijungimų atlikti negalima."
+
+#, c-format
+msgid "shell: Password is required for %s"
+msgstr ""
+
+msgid "shell: Sending password..."
+msgstr ""
+
+msgid "shell: Sending initial line..."
+msgstr ""
+
+msgid "shell: Getting host info..."
+msgstr ""
+
+#, c-format
+msgid "shell: Reading directory %s..."
+msgstr ""
+
+#, c-format
+msgid "shell: store %s: sending command..."
+msgstr ""
+
+msgid "shell: Local read failed, sending zeros"
+msgstr ""
+
+msgid "shell: storing file"
+msgstr ""
+
+msgid "Aborting transfer..."
+msgstr "Nutraukiamas siuntimas..."
+
+msgid "Error reported after abort."
+msgstr "Po nutraukties pranešta klaida."
+
+msgid "Aborted transfer would be successful."
+msgstr "Nutrauktas siuntimas būtų sėkmingas."
 
 msgid "Inconsistent tar archive"
 msgstr "Nevientisas tar archyvas"
@@ -4544,3 +4574,23 @@ msgstr "Tęsti nuo pradžios?"
 
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr ""
+
+#, c-format
+#~ msgid "%s is not a directory\n"
+#~ msgstr "%s nėra aplankas\n"
+
+#, c-format
+#~ msgid "Directory %s is not owned by you\n"
+#~ msgstr "Aplankas %s jums nepriklauso\n"
+
+#, c-format
+#~ msgid "Cannot set correct permissions for directory %s\n"
+#~ msgstr " Nepavyko nustatyti reikiamų teisių aplankui %s\n"
+
+#, c-format
+#~ msgid "Temporary files will be created in %s\n"
+#~ msgstr "Laikinieji failai bus talpinami aplanke %s\n"
+
+#, c-format
+#~ msgid "Temporary files will not be created\n"
+#~ msgstr "Laikinieji failai nebus kuriami\n"

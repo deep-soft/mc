@@ -2,7 +2,7 @@
    Skins engine.
    Work with colors - backward compatibility
 
-   Copyright (C) 2009-2023
+   Copyright (C) 2009-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -69,6 +69,7 @@ static const mc_skin_colors_old_t old_colors[] = {
     {"editframedrag", "editor", "editframedrag"},
     {"editlinestate", "editor", "editlinestate"},
     {"editmarked", "editor", "editmarked"},
+    {"editnonprintable", "editor", "editnonprintable"},
     {"editnormal", "editor", "_default_"},
     {"editwhitespace", "editor", "editwhitespace"},
     {"errdhotfocus", "error", "errdhotfocus"},
@@ -146,7 +147,7 @@ mc_skin_colors_old_transform (const char *old_color, const char **group, const c
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mc_skin_colors_old_configure_one (mc_skin_t * mc_skin, const char *the_color_string)
+mc_skin_colors_old_configure_one (mc_skin_t *mc_skin, const char *the_color_string)
 {
     gchar **colors, **orig_colors;
 
@@ -192,7 +193,7 @@ mc_skin_colors_old_configure_one (mc_skin_t * mc_skin, const char *the_color_str
 /* --------------------------------------------------------------------------------------------- */
 
 void
-mc_skin_colors_old_configure (mc_skin_t * mc_skin)
+mc_skin_colors_old_configure (mc_skin_t *mc_skin)
 {
     mc_skin_colors_old_configure_one (mc_skin, mc_global.tty.setup_color_string);
     mc_skin_colors_old_configure_one (mc_skin, mc_global.tty.term_color_string);

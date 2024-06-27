@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: https://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2023-08-06 15:50+0200\n"
+"POT-Creation-Date: 2024-06-02 12:47+0300\n"
 "PO-Revision-Date: 2010-12-29 10:19+0000\n"
 "Last-Translator: Meng Pang Wang, 2023\n"
 "Language-Team: Chinese (Taiwan) (http://app.transifex.com/mc/mc/language/"
@@ -551,29 +551,11 @@ msgstr "取得檔案中"
 msgid "Changes to file lost"
 msgstr "欲切換到的檔案已遺失"
 
-#, c-format
-msgid "%s is not a directory\n"
-msgstr "%s 不是一個目錄\n"
-
-#, c-format
-msgid "Directory %s is not owned by you\n"
-msgstr "您不是目錄 %s 的擁有者\n"
-
-#, c-format
-msgid "Cannot set correct permissions for directory %s\n"
-msgstr "無法為目錄 %s 設定適當的權限\n"
-
-#, c-format
-msgid "Cannot create temporary directory %s: %s\n"
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary directory %s: %s.\n"
+"Temporary files will not be created\n"
 msgstr "無法建立暫存目錄 %s：%s\n"
-
-#, c-format
-msgid "Temporary files will be created in %s\n"
-msgstr "將於 %s 建立暫存檔案\n"
-
-#, c-format
-msgid "Temporary files will not be created\n"
-msgstr "將不會建立暫存檔案\n"
 
 msgid "Press any key to continue..."
 msgstr "按任意鍵繼續..."
@@ -724,7 +706,8 @@ msgid ""
 "                 errdhotfocus\n"
 "   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
 "   Popup menus:  pmenunormal, pmenusel, pmenutitle\n"
-"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace, "
+"editnonprintable,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
 "   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
@@ -777,6 +760,9 @@ msgid "Terminal options"
 msgstr "終端機選項"
 
 msgid "Arguments parse error!"
+msgstr ""
+
+msgid "MC is built without builtin editor."
 msgstr ""
 
 msgid "No arguments given to the viewer."
@@ -1569,7 +1555,7 @@ msgid ""
 "written for the Midnight Commander."
 msgstr ""
 
-msgid "Copyright (C) 1996-2023 the Free Software Foundation"
+msgid "Copyright (C) 1996-2024 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -2628,6 +2614,22 @@ msgid ""
 "%s"
 msgstr ""
 
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source file \"%s\"\n"
+"%s"
+msgstr ""
+"無法覆寫檔案 \"%s\"\n"
+"%s"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes of target file \"%s\"\n"
+"%s"
+msgstr ""
+"無法對目標檔案 \"%s\" 執行 chmod 指令\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot create special file \"%s\"\n"
@@ -2717,11 +2719,27 @@ msgid ""
 "%s"
 msgstr ""
 
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes for target file \"%s\"\n"
+"%s"
+msgstr ""
+"無法對目標檔案 \"%s\" 執行 chmod 指令\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot stat source directory \"%s\"\n"
 "%s"
 msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source directory \"%s\"\n"
+"%s"
+msgstr ""
+"無法建立目標目錄 \"%s\"\n"
+"%s"
 
 #, c-format
 msgid ""
@@ -3785,10 +3803,10 @@ msgstr ""
 msgid "Warning: Cannot change to %s.\n"
 msgstr "警告： 無法切換到 %s。\n"
 
-msgid "With builtin Editor and Aspell support"
+msgid "With builtin editor and aspell support"
 msgstr ""
 
-msgid "With builtin Editor"
+msgid "With builtin editor"
 msgstr ""
 
 msgid "With optional subshell support"
@@ -3985,66 +4003,24 @@ msgid ""
 "%s"
 msgstr ""
 
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong file name"
+msgstr ""
+
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong archive name"
+msgstr ""
+
+msgid ""
+"EXTFS virtual file system:\n"
+"cannot build command"
+msgstr ""
+
 #, c-format
 msgid "Warning: cannot open %s directory\n"
 msgstr "警告：無法開啟目錄 %s\n"
-
-#, c-format
-msgid "fish: Disconnecting from %s"
-msgstr "fish: 結束至 %s 的連線"
-
-msgid "fish: Waiting for initial line..."
-msgstr "fish: 等待起始化訊息"
-
-msgid "Sorry, we cannot do password authenticated connections for now."
-msgstr "不好意思，目前無法進行經過密碼認證的連線。"
-
-#, c-format
-msgid "fish: Password is required for %s"
-msgstr "fish: %s 要求輸入密碼"
-
-msgid "fish: Sending password..."
-msgstr "fish: 正在送出登入密碼"
-
-msgid "fish: Sending initial line..."
-msgstr "fish: 送出起始化訊息"
-
-msgid "fish: Handshaking version..."
-msgstr "fish: 交握版本"
-
-msgid "fish: Getting host info..."
-msgstr "fish: 取得主機資訊..."
-
-#, c-format
-msgid "fish: Reading directory %s..."
-msgstr "fish：正在讀取目錄 %s..."
-
-#, c-format
-msgid "%s: done."
-msgstr "%s: 完成。"
-
-#, c-format
-msgid "%s: failure"
-msgstr "%s: 失敗"
-
-#, c-format
-msgid "fish: store %s: sending command..."
-msgstr "fish: 儲存%s: 送出命令"
-
-msgid "fish: Local read failed, sending zeros"
-msgstr "fish: 本地端讀取錯誤, 沒有送出"
-
-msgid "fish: storing file"
-msgstr "fish: 儲存檔案"
-
-msgid "Aborting transfer..."
-msgstr "放棄傳輸...."
-
-msgid "Error reported after abort."
-msgstr "放棄後回報錯誤"
-
-msgid "Aborted transfer would be successful."
-msgstr "將成功放棄傳輸"
 
 #, c-format
 msgid "ftpfs: Disconnecting from %s"
@@ -4155,6 +4131,14 @@ msgstr "(先切換路徑)"
 
 msgid "ftpfs: failed; nowhere to fallback to"
 msgstr "ftpfs: 失敗; 無法轉移到其它目錄"
+
+#, c-format
+msgid "%s: failure"
+msgstr "%s: 失敗"
+
+#, c-format
+msgid "%s: done."
+msgstr "%s: 完成。"
 
 msgid "ftpfs: storing file"
 msgstr "ftpfs: 儲存檔案"
@@ -4292,6 +4276,52 @@ msgstr "sftp: (Ctrl-G 跳出) 列表... %s"
 
 msgid "sftp: Listing done."
 msgstr "sftp: 列表完成。"
+
+#, c-format
+msgid "shell: Disconnecting from %s"
+msgstr ""
+
+msgid "shell: Waiting for initial line..."
+msgstr ""
+
+msgid "Sorry, we cannot do password authenticated connections for now."
+msgstr "不好意思，目前無法進行經過密碼認證的連線。"
+
+#, c-format
+msgid "shell: Password is required for %s"
+msgstr ""
+
+msgid "shell: Sending password..."
+msgstr ""
+
+msgid "shell: Sending initial line..."
+msgstr ""
+
+msgid "shell: Getting host info..."
+msgstr ""
+
+#, c-format
+msgid "shell: Reading directory %s..."
+msgstr ""
+
+#, c-format
+msgid "shell: store %s: sending command..."
+msgstr ""
+
+msgid "shell: Local read failed, sending zeros"
+msgstr ""
+
+msgid "shell: storing file"
+msgstr ""
+
+msgid "Aborting transfer..."
+msgstr "放棄傳輸...."
+
+msgid "Error reported after abort."
+msgstr "放棄後回報錯誤"
+
+msgid "Aborted transfer would be successful."
+msgstr "將成功放棄傳輸"
 
 msgid "Inconsistent tar archive"
 msgstr "不完整的 tar 檔案集"
@@ -4503,3 +4533,23 @@ msgstr "從頭開始?"
 
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr "無法取得本地的副本在 ftp://some.host/editme.txt"
+
+#, c-format
+#~ msgid "%s is not a directory\n"
+#~ msgstr "%s 不是一個目錄\n"
+
+#, c-format
+#~ msgid "Directory %s is not owned by you\n"
+#~ msgstr "您不是目錄 %s 的擁有者\n"
+
+#, c-format
+#~ msgid "Cannot set correct permissions for directory %s\n"
+#~ msgstr "無法為目錄 %s 設定適當的權限\n"
+
+#, c-format
+#~ msgid "Temporary files will be created in %s\n"
+#~ msgstr "將於 %s 建立暫存檔案\n"
+
+#, c-format
+#~ msgid "Temporary files will not be created\n"
+#~ msgstr "將不會建立暫存檔案\n"

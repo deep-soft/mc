@@ -57,6 +57,11 @@
 /* Difference or zero */
 #define DOZ(a, b) ((a) > (b) ? (a) - (b) : 0)
 
+/* flags for shell_execute */
+#define EXECUTE_INTERNAL (1 << 0)
+#define EXECUTE_AS_SHELL (1 << 2)
+#define EXECUTE_HIDE     (1 << 3)
+
 /*** enums ***************************************************************************************/
 
 /* Pathname canonicalization */
@@ -84,6 +89,7 @@ enum compression_type
     COMPRESSION_LZIP,
     COMPRESSION_LZ4,
     COMPRESSION_LZMA,
+    COMPRESSION_LZO,
     COMPRESSION_XZ,
     COMPRESSION_ZSTD,
 };
@@ -180,7 +186,7 @@ char *diff_two_paths (const vfs_path_t * vpath1, const vfs_path_t * vpath2);
 const char *x_basename (const char *fname);
 
 char *load_mc_home_file (const char *from, const char *filename, char **allocated_filename,
-                         size_t * length);
+                         size_t *length);
 
 /* uid/gid managing */
 void init_groups (void);

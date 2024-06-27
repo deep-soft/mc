@@ -1,7 +1,7 @@
 /*
    paths to configuration files
 
-   Copyright (C) 2010-2023
+   Copyright (C) 2010-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -56,8 +56,7 @@ static const struct
 {
     char **basedir;
     const char *filename;
-} mc_config_files_reference[] =
-{
+} mc_config_files_reference[] = {
     /* *INDENT-OFF* */
     /* config */
     { &mc_config_str, MC_CONFIG_FILE },
@@ -74,7 +73,7 @@ static const struct
 
     /* data */
     { &mc_data_str, MC_SKINS_DIR },
-    { &mc_data_str, FISH_PREFIX },
+    { &mc_data_str, VFS_SHELL_PREFIX },
     { &mc_data_str, MC_ASHRC_FILE },
     { &mc_data_str, MC_BASHRC_FILE },
     { &mc_data_str, MC_INPUTRC_FILE },
@@ -101,7 +100,7 @@ static const struct
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mc_config_mkdir (const char *directory_name, GError ** mcerror)
+mc_config_mkdir (const char *directory_name, GError **mcerror)
 {
     mc_return_if_error (mcerror);
 
@@ -113,7 +112,7 @@ mc_config_mkdir (const char *directory_name, GError ** mcerror)
 /* --------------------------------------------------------------------------------------------- */
 
 static char *
-mc_config_init_one_config_path (const char *path_base, const char *subdir, GError ** mcerror)
+mc_config_init_one_config_path (const char *path_base, const char *subdir, GError **mcerror)
 {
     char *full_path;
 
@@ -144,7 +143,7 @@ mc_config_init_one_config_path (const char *path_base, const char *subdir, GErro
 /* --------------------------------------------------------------------------------------------- */
 
 void
-mc_config_init_config_paths (GError ** mcerror)
+mc_config_init_config_paths (GError **mcerror)
 {
     const char *profile_root;
     char *dir;

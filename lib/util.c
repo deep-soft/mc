@@ -1,7 +1,7 @@
 /*
    Various utilities
 
-   Copyright (C) 1994-2023
+   Copyright (C) 1994-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -111,7 +111,7 @@ is_8bit_printable (unsigned char c)
 /* --------------------------------------------------------------------------------------------- */
 
 static char *
-resolve_symlinks (const vfs_path_t * vpath)
+resolve_symlinks (const vfs_path_t *vpath)
 {
     char *p, *p2;
     char *buf, *buf2, *q, *r, c;
@@ -256,6 +256,9 @@ name_quote (const char *s, gboolean quote_percent)
 {
     GString *ret;
 
+    if (s == NULL || *s == '\0')
+        return NULL;
+
     ret = g_string_sized_new (64);
 
     if (*s == '-')
@@ -305,7 +308,7 @@ name_quote (const char *s, gboolean quote_percent)
         g_string_append_c (ret, *s);
     }
 
-    return g_string_free (ret, FALSE);
+    return g_string_free (ret, ret->len == 0);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -314,7 +317,8 @@ char *
 fake_name_quote (const char *s, gboolean quote_percent)
 {
     (void) quote_percent;
-    return g_strdup (s);
+
+    return (s == NULL || *s == '\0' ? NULL : g_strdup (s));
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -328,15 +332,11 @@ const char *
 path_trunc (const char *path, size_t trunc_len)
 {
     vfs_path_t *vpath;
-    char *secure_path;
     const char *ret;
 
-    vpath = vfs_path_from_str (path);
-    secure_path = vfs_path_to_str_flags (vpath, 0, VPF_STRIP_PASSWORD);
+    vpath = vfs_path_from_str_flags (path, VPF_STRIP_PASSWORD);
+    ret = str_trunc (vfs_path_as_str (vpath), trunc_len);
     vfs_path_free (vpath, TRUE);
-
-    ret = str_trunc (secure_path, trunc_len);
-    g_free (secure_path);
 
     return ret;
 }
@@ -452,11 +452,12 @@ size_trunc_len (char *buffer, unsigned int len, uintmax_t size, int units, gbool
      */
 #endif
     };
-    /* *INDENT-ON* */
+
     static const char *const suffix[] =
         { "", "K", "M", "G", "T", "P", "E", "Z", "Y", "R", "Q", NULL };
     static const char *const suffix_lc[] =
         { "", "k", "m", "g", "t", "p", "e", "z", "y", "r", "q", NULL };
+    /* *INDENT-ON* */
 
     const char *const *sfx = use_si ? suffix_lc : suffix;
     int j = 0;
@@ -593,7 +594,7 @@ extension (const char *filename)
 
 char *
 load_mc_home_file (const char *from, const char *filename, char **allocated_filename,
-                   size_t * length)
+                   size_t *length)
 {
     char *hintfile_base, *hintfile;
     char *lang;
@@ -887,6 +888,11 @@ get_compression_type (int fd, const char *name)
         && magic[2] == 'Z' && magic[3] == 'M' && magic[4] == 'A' && magic[5] == 0x00)
         return COMPRESSION_LZMA;
 
+    /* LZO format - \x89\x4c\x5a\x4f\x00\x0d\x0a\x1a\x0a    lzop compressed data */
+    if (magic[0] == 0x89 && magic[1] == 0x4c &&
+        magic[2] == 0x5a && magic[3] == 0x4f && magic[4] == 0x00 && magic[5] == 0x0d)
+        return COMPRESSION_LZO;
+
     /* XZ compression magic */
     if (magic[0] == 0xFD
         && magic[1] == 0x37
@@ -926,6 +932,8 @@ decompress_extension (int type)
         return "/ulz4" VFS_PATH_URL_DELIMITER;
     case COMPRESSION_LZMA:
         return "/ulzma" VFS_PATH_URL_DELIMITER;
+    case COMPRESSION_LZO:
+        return "/ulzo" VFS_PATH_URL_DELIMITER;
     case COMPRESSION_XZ:
         return "/uxz" VFS_PATH_URL_DELIMITER;
     case COMPRESSION_ZSTD:
@@ -1018,7 +1026,7 @@ convert_controls (const char *p)
  */
 
 char *
-diff_two_paths (const vfs_path_t * vpath1, const vfs_path_t * vpath2)
+diff_two_paths (const vfs_path_t *vpath1, const vfs_path_t *vpath2)
 {
     int j, prevlen = -1, currlen;
     char *my_first = NULL, *my_second = NULL;
@@ -1089,7 +1097,7 @@ diff_two_paths (const vfs_path_t * vpath1, const vfs_path_t * vpath2)
  */
 
 GList *
-list_append_unique (GList * list, char *text)
+list_append_unique (GList *list, char *text)
 {
     GList *lc_link;
 
@@ -1129,8 +1137,8 @@ list_append_unique (GList * list, char *text)
  */
 
 void
-load_file_position (const vfs_path_t * filename_vpath, long *line, long *column, off_t * offset,
-                    GArray ** bookmarks)
+load_file_position (const vfs_path_t *filename_vpath, long *line, long *column, off_t *offset,
+                    GArray **bookmarks)
 {
     char *fn;
     FILE *f;
@@ -1220,8 +1228,8 @@ load_file_position (const vfs_path_t * filename_vpath, long *line, long *column,
  */
 
 void
-save_file_position (const vfs_path_t * filename_vpath, long line, long column, off_t offset,
-                    GArray * bookmarks)
+save_file_position (const vfs_path_t *filename_vpath, long line, long column, off_t offset,
+                    GArray *bookmarks)
 {
     static size_t filepos_max_saved_entries = 0;
     char *fn, *tmp_fn;
@@ -1264,7 +1272,7 @@ save_file_position (const vfs_path_t * filename_vpath, long line, long column, o
         if (bookmarks != NULL)
             for (i = 0; i < bookmarks->len && i < MAX_SAVED_BOOKMARKS; i++)
                 if (fprintf (f, ";%zu", g_array_index (bookmarks, size_t, i)) < 0)
-                    goto write_position_error;
+                      goto write_position_error;
 
         if (fprintf (f, "\n") < 0)
             goto write_position_error;
@@ -1467,7 +1475,7 @@ mc_get_profile_root (void)
  */
 
 void
-mc_propagate_error (GError ** dest, int code, const char *format, ...)
+mc_propagate_error (GError **dest, int code, const char *format, ...)
 {
     if (dest != NULL && *dest == NULL)
     {
@@ -1493,7 +1501,7 @@ mc_propagate_error (GError ** dest, int code, const char *format, ...)
  */
 
 void
-mc_replace_error (GError ** dest, int code, const char *format, ...)
+mc_replace_error (GError **dest, int code, const char *format, ...)
 {
     if (dest != NULL)
     {
@@ -1522,7 +1530,7 @@ mc_replace_error (GError ** dest, int code, const char *format, ...)
  * @return TRUE if clock skew detected, FALSE otherwise
  */
 gboolean
-mc_time_elapsed (gint64 * timestamp, gint64 delay)
+mc_time_elapsed (gint64 *timestamp, gint64 delay)
 {
     gint64 now;
 

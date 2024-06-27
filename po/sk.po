@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: https://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2023-08-06 15:50+0200\n"
+"POT-Creation-Date: 2024-06-02 12:47+0300\n"
 "PO-Revision-Date: 2010-12-29 10:19+0000\n"
 "Last-Translator: hualahyja, 2019\n"
 "Language-Team: Slovak (http://app.transifex.com/mc/mc/language/sk/)\n"
@@ -561,29 +561,11 @@ msgstr "Získava sa súbor"
 msgid "Changes to file lost"
 msgstr "Zmeny súboru stratené"
 
-#, c-format
-msgid "%s is not a directory\n"
-msgstr "%s nie je adresár\n"
-
-#, c-format
-msgid "Directory %s is not owned by you\n"
-msgstr "Nevlastníte adresár %s\n"
-
-#, c-format
-msgid "Cannot set correct permissions for directory %s\n"
-msgstr "Nepodarilo sa nastaviť správne prístupové práva pre adresár %s\n"
-
-#, c-format
-msgid "Cannot create temporary directory %s: %s\n"
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary directory %s: %s.\n"
+"Temporary files will not be created\n"
 msgstr "Nepodarilo sa vytvoriť dočasný adresár %s: %s\n"
-
-#, c-format
-msgid "Temporary files will be created in %s\n"
-msgstr "Dočasné súbory budú vytvorené v %s\n"
-
-#, c-format
-msgid "Temporary files will not be created\n"
-msgstr "Dočasné súbory nebudú vytvorené\n"
 
 msgid "Press any key to continue..."
 msgstr "Pokračujte stlačením ľubovoľného klávesu..."
@@ -735,30 +717,13 @@ msgid ""
 "                 errdhotfocus\n"
 "   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
 "   Popup menus:  pmenunormal, pmenusel, pmenutitle\n"
-"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace, "
+"editnonprintable,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
 "   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 msgstr ""
-"--colors KĽÚČ_SLOVO={POPRED},{POZAD},{ATRIB}:KĽÚČ_SLOVO2=...\n"
-"\n"
-"{POPRED}, {POZAD} a {ATRIB} je možné vynechať a použijú sa predvolené\n"
-"\n"
-"Kľúčové slová:\n"
-"   Globálne:     errors, disabled, reverse, gauge, header\n"
-"                 input, inputmark, inputunchanged, commandlinemark\n"
-"                 bbarhotkey, bbarbutton, statusbar\n"
-"   Zobr. súbor.: normal, selected, marked, markselect\n"
-"   Dialóg. okná: dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
-"                 errdhotfocus\n"
-"   Menu:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
-"   Rolet. menu:   pmenunormal, pmenusel, pmenutitle\n"
-"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
-"                 editlinestate, editbg, editframe, editframeactive\n"
-"                 editframedrag\n"
-"   Prehliadač:    viewnormal,viewbold, viewunderline, viewselected\n"
-"   Pomocník:     helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 
 #. TRANSLATORS: don't translate color names and attributes
 msgid ""
@@ -820,6 +785,9 @@ msgstr "Možnosti terminálu"
 
 msgid "Arguments parse error!"
 msgstr "Chyba pri spracovaní argumentov!"
+
+msgid "MC is built without builtin editor."
+msgstr ""
 
 msgid "No arguments given to the viewer."
 msgstr "Prehliadaču neboli odovzdané žiadne argumenty."
@@ -1625,7 +1593,7 @@ msgstr ""
 "Používateľsky prívetivý textový editor\n"
 "napísaný pre Midnight Commander."
 
-msgid "Copyright (C) 1996-2023 the Free Software Foundation"
+msgid "Copyright (C) 1996-2024 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -2727,6 +2695,22 @@ msgstr ""
 "Nemožno vykonať stat() zdrojového súboru „%s“\n"
 "%s"
 
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source file \"%s\"\n"
+"%s"
+msgstr ""
+"Nemožno vykonať stat() zdrojového súboru „%s“\n"
+"%s"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes of target file \"%s\"\n"
+"%s"
+msgstr ""
+"Nemožno vykonať fstat() cieľového súboru „%s“\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot create special file \"%s\"\n"
@@ -2838,9 +2822,25 @@ msgstr ""
 "Nemožno zatvoriť cieľový súbor „%s“\n"
 "%s"
 
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes for target file \"%s\"\n"
+"%s"
+msgstr ""
+"Nemožno vykonať fstat() cieľového súboru „%s“\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot stat source directory \"%s\"\n"
+"%s"
+msgstr ""
+"Nemožno vykonať stat() zdrojového adresára „%s“\n"
+"%s"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source directory \"%s\"\n"
 "%s"
 msgstr ""
 "Nemožno vykonať stat() zdrojového adresára „%s“\n"
@@ -3935,10 +3935,10 @@ msgstr "Shell je ešte aktívny. Ukončiť napriek tomu?"
 msgid "Warning: Cannot change to %s.\n"
 msgstr "Upozornenie: Nedá sa zmeniť adresár na %s.\n"
 
-msgid "With builtin Editor and Aspell support"
+msgid "With builtin editor and aspell support"
 msgstr ""
 
-msgid "With builtin Editor"
+msgid "With builtin editor"
 msgstr ""
 
 msgid "With optional subshell support"
@@ -4135,66 +4135,24 @@ msgid ""
 "%s"
 msgstr ""
 
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong file name"
+msgstr ""
+
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong archive name"
+msgstr ""
+
+msgid ""
+"EXTFS virtual file system:\n"
+"cannot build command"
+msgstr ""
+
 #, c-format
 msgid "Warning: cannot open %s directory\n"
 msgstr "Upozornenie: nepodarilo sa otvoriť adresár %s\n"
-
-#, c-format
-msgid "fish: Disconnecting from %s"
-msgstr "fish: Odpája sa z %s"
-
-msgid "fish: Waiting for initial line..."
-msgstr "fish: Čaká sa na inicializačný riadok..."
-
-msgid "Sorry, we cannot do password authenticated connections for now."
-msgstr "Ľutujeme, zatiaľ nedokážeme pracovať s autentifikovanými spojeniami."
-
-#, c-format
-msgid "fish: Password is required for %s"
-msgstr "fish: %s vyžaduje heslo"
-
-msgid "fish: Sending password..."
-msgstr "fish: Posiela sa heslo..."
-
-msgid "fish: Sending initial line..."
-msgstr "fish: Posiela sa inicializačný riadok..."
-
-msgid "fish: Handshaking version..."
-msgstr "fish: Dohaduje sa verzia..."
-
-msgid "fish: Getting host info..."
-msgstr "fish: Získavajú sa informácie o hostiteľovi"
-
-#, c-format
-msgid "fish: Reading directory %s..."
-msgstr "fish: Načítava sa adresár %s..."
-
-#, c-format
-msgid "%s: done."
-msgstr "%s: hotovo."
-
-#, c-format
-msgid "%s: failure"
-msgstr "%s: chyba"
-
-#, c-format
-msgid "fish: store %s: sending command..."
-msgstr "fish: store %s: posiela sa príkaz..."
-
-msgid "fish: Local read failed, sending zeros"
-msgstr "fish: Miestne čítanie zlyhalo, posielajú sa nuly"
-
-msgid "fish: storing file"
-msgstr "fish: ukladá sa súbor"
-
-msgid "Aborting transfer..."
-msgstr "Prerušuje sa prenos..."
-
-msgid "Error reported after abort."
-msgstr "Chyba hlásená po prerušení."
-
-msgid "Aborted transfer would be successful."
-msgstr "Prerušenie prenosu bolo úspešné."
 
 #, c-format
 msgid "ftpfs: Disconnecting from %s"
@@ -4305,6 +4263,14 @@ msgstr "(naprv cd)"
 
 msgid "ftpfs: failed; nowhere to fallback to"
 msgstr "ftpfs: chyba; niet kam sa vrátiť"
+
+#, c-format
+msgid "%s: failure"
+msgstr "%s: chyba"
+
+#, c-format
+msgid "%s: done."
+msgstr "%s: hotovo."
 
 msgid "ftpfs: storing file"
 msgstr "ftpfs: ukladám súbor"
@@ -4444,6 +4410,52 @@ msgstr "sftp: (Ctrl-G preruší) Výpis... %s"
 
 msgid "sftp: Listing done."
 msgstr "sftp: Výpis - hotovo."
+
+#, c-format
+msgid "shell: Disconnecting from %s"
+msgstr ""
+
+msgid "shell: Waiting for initial line..."
+msgstr ""
+
+msgid "Sorry, we cannot do password authenticated connections for now."
+msgstr "Ľutujeme, zatiaľ nedokážeme pracovať s autentifikovanými spojeniami."
+
+#, c-format
+msgid "shell: Password is required for %s"
+msgstr ""
+
+msgid "shell: Sending password..."
+msgstr ""
+
+msgid "shell: Sending initial line..."
+msgstr ""
+
+msgid "shell: Getting host info..."
+msgstr ""
+
+#, c-format
+msgid "shell: Reading directory %s..."
+msgstr ""
+
+#, c-format
+msgid "shell: store %s: sending command..."
+msgstr ""
+
+msgid "shell: Local read failed, sending zeros"
+msgstr ""
+
+msgid "shell: storing file"
+msgstr ""
+
+msgid "Aborting transfer..."
+msgstr "Prerušuje sa prenos..."
+
+msgid "Error reported after abort."
+msgstr "Chyba hlásená po prerušení."
+
+msgid "Aborted transfer would be successful."
+msgstr "Prerušenie prenosu bolo úspešné."
 
 msgid "Inconsistent tar archive"
 msgstr "Poškodený archív .tar"
@@ -4659,3 +4671,23 @@ msgstr "Pokračovať od začiatku?"
 
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr "Nemožno stiahnuť lokálnu kópiu /ftp://some.host/editme.txt"
+
+#, c-format
+#~ msgid "%s is not a directory\n"
+#~ msgstr "%s nie je adresár\n"
+
+#, c-format
+#~ msgid "Directory %s is not owned by you\n"
+#~ msgstr "Nevlastníte adresár %s\n"
+
+#, c-format
+#~ msgid "Cannot set correct permissions for directory %s\n"
+#~ msgstr "Nepodarilo sa nastaviť správne prístupové práva pre adresár %s\n"
+
+#, c-format
+#~ msgid "Temporary files will be created in %s\n"
+#~ msgstr "Dočasné súbory budú vytvorené v %s\n"
+
+#, c-format
+#~ msgid "Temporary files will not be created\n"
+#~ msgstr "Dočasné súbory nebudú vytvorené\n"

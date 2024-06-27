@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: https://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2023-08-06 15:50+0200\n"
+"POT-Creation-Date: 2024-06-02 12:47+0300\n"
 "PO-Revision-Date: 2010-12-29 10:19+0000\n"
 "Last-Translator: Efstathios Iosifidis <iefstathios@gmail.com>, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/mc/mc/language/el/)\n"
@@ -542,29 +542,11 @@ msgstr "Γίνεται λήψη αρχείου"
 msgid "Changes to file lost"
 msgstr "Οι αλλαγές στο αρχείο χάθηκαν"
 
-#, c-format
-msgid "%s is not a directory\n"
-msgstr "%s δεν είναι κατάλογος\n"
-
-#, c-format
-msgid "Directory %s is not owned by you\n"
-msgstr "Ο κατάλογος %s δε σας ανήκει\n"
-
-#, c-format
-msgid "Cannot set correct permissions for directory %s\n"
-msgstr ""
-
-#, c-format
-msgid "Cannot create temporary directory %s: %s\n"
+#, fuzzy, c-format
+msgid ""
+"Cannot create temporary directory %s: %s.\n"
+"Temporary files will not be created\n"
 msgstr "Αδύνατη η δημιουργία προσωρινού καταλόγου %s: %s\n"
-
-#, c-format
-msgid "Temporary files will be created in %s\n"
-msgstr "Τα προσωρινά αρχεία θα δημιουργηθούν στο %s\n"
-
-#, c-format
-msgid "Temporary files will not be created\n"
-msgstr "Δε θα δημιουργηθούν προσωρινά αρχεία\n"
 
 msgid "Press any key to continue..."
 msgstr "Πατήστε οποιοδήποτε κουμπί για να συνεχίσετε..."
@@ -717,7 +699,8 @@ msgid ""
 "                 errdhotfocus\n"
 "   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
 "   Popup menus:  pmenunormal, pmenusel, pmenutitle\n"
-"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace, "
+"editnonprintable,\n"
 "                 editlinestate, editbg, editframe, editframeactive\n"
 "                 editframedrag\n"
 "   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
@@ -770,6 +753,9 @@ msgid "Terminal options"
 msgstr "Επιλογές τερματικού"
 
 msgid "Arguments parse error!"
+msgstr ""
+
+msgid "MC is built without builtin editor."
 msgstr ""
 
 msgid "No arguments given to the viewer."
@@ -1564,7 +1550,7 @@ msgid ""
 "written for the Midnight Commander."
 msgstr ""
 
-msgid "Copyright (C) 1996-2023 the Free Software Foundation"
+msgid "Copyright (C) 1996-2024 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -2639,6 +2625,22 @@ msgid ""
 "%s"
 msgstr ""
 
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source file \"%s\"\n"
+"%s"
+msgstr ""
+"Αδυναμία ανοίγματος πηγαίου αρχείου \"%s\"\n"
+"%s"
+
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes of target file \"%s\"\n"
+"%s"
+msgstr ""
+"Αδυναμία εγγραφής στο αρχείο στόχο \"%s\"\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot create special file \"%s\"\n"
@@ -2742,11 +2744,27 @@ msgstr ""
 "Αδυναμία κλεισίματος αρχείου στόχου \"%s\"\n"
 "%s"
 
+#, fuzzy, c-format
+msgid ""
+"Cannot set attributes for target file \"%s\"\n"
+"%s"
+msgstr ""
+"Αδυναμία εγγραφής στο αρχείο στόχο \"%s\"\n"
+"%s"
+
 #, c-format
 msgid ""
 "Cannot stat source directory \"%s\"\n"
 "%s"
 msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Cannot get attributes of source directory \"%s\"\n"
+"%s"
+msgstr ""
+"Αδυναμία δημιουργίας καταλόγου στόχου \"%s\"\n"
+"%s"
 
 #, c-format
 msgid ""
@@ -3818,10 +3836,10 @@ msgstr "Το κέλυφος είναι ακόμα ενεργό. Έξοδος π�
 msgid "Warning: Cannot change to %s.\n"
 msgstr "Προειδοποίηση: Αδυναμία αλλαγής σε %s.\n"
 
-msgid "With builtin Editor and Aspell support"
+msgid "With builtin editor and aspell support"
 msgstr ""
 
-msgid "With builtin Editor"
+msgid "With builtin editor"
 msgstr ""
 
 msgid "With optional subshell support"
@@ -4006,67 +4024,24 @@ msgid ""
 "%s"
 msgstr ""
 
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong file name"
+msgstr ""
+
+msgid ""
+"EXTFS virtual file system:\n"
+"wrong archive name"
+msgstr ""
+
+msgid ""
+"EXTFS virtual file system:\n"
+"cannot build command"
+msgstr ""
+
 #, c-format
 msgid "Warning: cannot open %s directory\n"
 msgstr "Προειδοποίηση: δεν ήταν δυνατό το άνοιγμα του καταλόγου %s\n"
-
-#, c-format
-msgid "fish: Disconnecting from %s"
-msgstr "fish: Γίνεται αποσύνδεση από %s"
-
-msgid "fish: Waiting for initial line..."
-msgstr ""
-
-msgid "Sorry, we cannot do password authenticated connections for now."
-msgstr ""
-"Λυπούμαστε, αλλά προς το παρόν συνδέσεις με χρήση κωδικού δεν υποστηρίζονται."
-
-#, c-format
-msgid "fish: Password is required for %s"
-msgstr "fish: Απαιτείται κωδικός πρόσβασης για %s"
-
-msgid "fish: Sending password..."
-msgstr "fish: Αποστολή κωδικού πρόσβασης..."
-
-msgid "fish: Sending initial line..."
-msgstr ""
-
-msgid "fish: Handshaking version..."
-msgstr ""
-
-msgid "fish: Getting host info..."
-msgstr "fish: Γίνεται λήψη πληροφοριών υπολογιστή..."
-
-#, c-format
-msgid "fish: Reading directory %s..."
-msgstr "fish: Ανάγνωση φακέλου %s..."
-
-#, c-format
-msgid "%s: done."
-msgstr "%s: εντάξει."
-
-#, c-format
-msgid "%s: failure"
-msgstr "%s: απέτυχε"
-
-#, c-format
-msgid "fish: store %s: sending command..."
-msgstr "fish: αποθήκευση %s: αποστολή εντολής..."
-
-msgid "fish: Local read failed, sending zeros"
-msgstr "fish: Η τοπική ανάγνωση απέτυψε, αποστέλνονται μηδενικά"
-
-msgid "fish: storing file"
-msgstr "fish: το αρχείο αποθηκεύεται"
-
-msgid "Aborting transfer..."
-msgstr "Ακύρωση μεταφοράς..."
-
-msgid "Error reported after abort."
-msgstr "Αναφέρθηκε σφάλμα μετά την ακύρωση."
-
-msgid "Aborted transfer would be successful."
-msgstr ""
 
 #, c-format
 msgid "ftpfs: Disconnecting from %s"
@@ -4177,6 +4152,14 @@ msgstr ""
 
 msgid "ftpfs: failed; nowhere to fallback to"
 msgstr ""
+
+#, c-format
+msgid "%s: failure"
+msgstr "%s: απέτυχε"
+
+#, c-format
+msgid "%s: done."
+msgstr "%s: εντάξει."
 
 msgid "ftpfs: storing file"
 msgstr "ftpfs: αποθήκευση αρχείου"
@@ -4313,6 +4296,53 @@ msgid "sftp: (Ctrl-G break) Listing... %s"
 msgstr ""
 
 msgid "sftp: Listing done."
+msgstr ""
+
+#, c-format
+msgid "shell: Disconnecting from %s"
+msgstr ""
+
+msgid "shell: Waiting for initial line..."
+msgstr ""
+
+msgid "Sorry, we cannot do password authenticated connections for now."
+msgstr ""
+"Λυπούμαστε, αλλά προς το παρόν συνδέσεις με χρήση κωδικού δεν υποστηρίζονται."
+
+#, c-format
+msgid "shell: Password is required for %s"
+msgstr ""
+
+msgid "shell: Sending password..."
+msgstr ""
+
+msgid "shell: Sending initial line..."
+msgstr ""
+
+msgid "shell: Getting host info..."
+msgstr ""
+
+#, c-format
+msgid "shell: Reading directory %s..."
+msgstr ""
+
+#, c-format
+msgid "shell: store %s: sending command..."
+msgstr ""
+
+msgid "shell: Local read failed, sending zeros"
+msgstr ""
+
+msgid "shell: storing file"
+msgstr ""
+
+msgid "Aborting transfer..."
+msgstr "Ακύρωση μεταφοράς..."
+
+msgid "Error reported after abort."
+msgstr "Αναφέρθηκε σφάλμα μετά την ακύρωση."
+
+msgid "Aborted transfer would be successful."
 msgstr ""
 
 msgid "Inconsistent tar archive"
@@ -4521,3 +4551,19 @@ msgstr "Συνέχεια από την αρχή;"
 
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr ""
+
+#, c-format
+#~ msgid "%s is not a directory\n"
+#~ msgstr "%s δεν είναι κατάλογος\n"
+
+#, c-format
+#~ msgid "Directory %s is not owned by you\n"
+#~ msgstr "Ο κατάλογος %s δε σας ανήκει\n"
+
+#, c-format
+#~ msgid "Temporary files will be created in %s\n"
+#~ msgstr "Τα προσωρινά αρχεία θα δημιουργηθούν στο %s\n"
+
+#, c-format
+#~ msgid "Temporary files will not be created\n"
+#~ msgstr "Δε θα δημιουργηθούν προσωρινά αρχεία\n"

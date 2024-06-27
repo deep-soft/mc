@@ -1,7 +1,7 @@
 /*
    Provides a functions for working with shell.
 
-   Copyright (C) 2006-2023
+   Copyright (C) 2006-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -142,7 +142,7 @@ mc_shell_get_from_env (void)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mc_shell_recognize_real_path (mc_shell_t * mc_shell)
+mc_shell_recognize_real_path (mc_shell_t *mc_shell)
 {
     if (strstr (mc_shell->path, "/zsh") != NULL || strstr (mc_shell->real_path, "/zsh") != NULL
         || getenv ("ZSH_VERSION") != NULL)
@@ -196,7 +196,7 @@ mc_shell_recognize_real_path (mc_shell_t * mc_shell)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-mc_shell_recognize_path (mc_shell_t * mc_shell)
+mc_shell_recognize_path (mc_shell_t *mc_shell)
 {
     /* If shell is not symlinked to busybox, it is safe to assume it is a real shell */
     if (strstr (mc_shell->path, "/bash") != NULL || getenv ("BASH") != NULL)

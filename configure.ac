@@ -212,6 +212,7 @@ dnl Check for other tools
 dnl ############################################################################
 
 AC_CHECK_TOOL(AR, ar, ar)
+AC_CHECK_TOOL(INDENT, gindent, indent)
 mc_UNIT_TESTS
 
 
@@ -654,8 +655,8 @@ src/vfs/extfs/helpers/uwim
 src/vfs/extfs/helpers/uzip
 src/vfs/extfs/helpers/uzoo
 
-src/vfs/fish/Makefile
-src/vfs/fish/helpers/Makefile
+src/vfs/shell/Makefile
+src/vfs/shell/helpers/Makefile
 
 src/vfs/ftpfs/Makefile
 

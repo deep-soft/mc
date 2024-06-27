@@ -1,7 +1,7 @@
 /*
    Virtual File System: GNU Tar file system.
 
-   Copyright (C) 2003-2023
+   Copyright (C) 2003-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -365,7 +365,7 @@ static struct tar_sparse_optab const pax_optab = {
 /* --------------------------------------------------------------------------------------------- */
 
 static gboolean
-decode_num (uintmax_t * num, const char *arg, uintmax_t maxval)
+decode_num (uintmax_t *num, const char *arg, uintmax_t maxval)
 {
     uintmax_t u;
     char *arg_lim;
@@ -386,7 +386,7 @@ decode_num (uintmax_t * num, const char *arg, uintmax_t maxval)
 /* --------------------------------------------------------------------------------------------- */
 
 static gboolean
-sparse_select_optab (const tar_super_t * archive, struct tar_sparse_file *file)
+sparse_select_optab (const tar_super_t *archive, struct tar_sparse_file *file)
 {
     switch (archive->type)
     {
@@ -417,7 +417,7 @@ sparse_select_optab (const tar_super_t * archive, struct tar_sparse_file *file)
 /* --------------------------------------------------------------------------------------------- */
 
 static gboolean
-sparse_init (tar_super_t * archive, struct tar_sparse_file *file)
+sparse_init (tar_super_t *archive, struct tar_sparse_file *file)
 {
     memset (file, 0, sizeof (*file));
 
@@ -466,7 +466,7 @@ sparse_fixup_header (struct tar_sparse_file *file)
 /* --------------------------------------------------------------------------------------------- */
 
 static gboolean
-sparse_decode_header (tar_super_t * archive, struct tar_sparse_file *file)
+sparse_decode_header (tar_super_t *archive, struct tar_sparse_file *file)
 {
     if (file->optab->decode_header != NULL)
         return file->optab->decode_header (archive, file);
@@ -543,12 +543,12 @@ oldgnu_fixup_header (struct tar_sparse_file *file)
  * Convert old GNU format sparse data to internal representation.
  */
 static gboolean
-oldgnu_get_sparse_info (tar_super_t * archive, struct tar_sparse_file *file)
+oldgnu_get_sparse_info (tar_super_t *archive, struct tar_sparse_file *file)
 {
     size_t i;
     union block *h = current_header;
-    int ext_p;
-    enum oldgnu_add_status rc;
+    gboolean ext_p;
+    enum oldgnu_add_status rc = add_fail;
 
     if (file->stat_info->sparse_map != NULL)
         g_array_set_size (file->stat_info->sparse_map, 0);
@@ -560,8 +560,8 @@ oldgnu_get_sparse_info (tar_super_t * archive, struct tar_sparse_file *file)
             break;
     }
 
-    for (ext_p = h->oldgnu_header.isextended ? 1 : 0; rc == add_ok && ext_p != 0;
-         ext_p = h->sparse_header.isextended ? 1 : 0)
+    for (ext_p = h->oldgnu_header.isextended != 0; rc == add_ok && ext_p;
+         ext_p = h->sparse_header.isextended != 0)
     {
         h = tar_find_next_block (archive);
         if (h == NULL)
@@ -608,11 +608,11 @@ star_fixup_header (struct tar_sparse_file *file)
  * Convert STAR format sparse data to internal representation
  */
 static gboolean
-star_get_sparse_info (tar_super_t * archive, struct tar_sparse_file *file)
+star_get_sparse_info (tar_super_t *archive, struct tar_sparse_file *file)
 {
     size_t i;
     union block *h = current_header;
-    int ext_p = 1;
+    gboolean ext_p = TRUE;
     enum oldgnu_add_status rc = add_ok;
 
     if (file->stat_info->sparse_map != NULL)
@@ -628,10 +628,10 @@ star_get_sparse_info (tar_super_t * archive, struct tar_sparse_file *file)
                 break;
         }
 
-        ext_p = h->star_in_header.isextended ? 1 : 0;
+        ext_p = h->star_in_header.isextended != 0;
     }
 
-    for (; rc == add_ok && ext_p != 0; ext_p = h->star_ext_header.isextended ? 1 : 0)
+    for (; rc == add_ok && ext_p; ext_p = h->star_ext_header.isextended != 0)
     {
         h = tar_find_next_block (archive);
         if (h == NULL)
@@ -660,7 +660,7 @@ pax_sparse_member_p (struct tar_sparse_file *file)
 /* --------------------------------------------------------------------------------------------- */
 
 static gboolean
-pax_decode_header (tar_super_t * archive, struct tar_sparse_file *file)
+pax_decode_header (tar_super_t *archive, struct tar_sparse_file *file)
 {
     if (file->stat_info->sparse_major > 0)
     {
@@ -730,7 +730,7 @@ pax_decode_header (tar_super_t * archive, struct tar_sparse_file *file)
 /* --------------------------------------------------------------------------------------------- */
 
 gboolean
-tar_sparse_member_p (tar_super_t * archive, struct tar_stat_info * st)
+tar_sparse_member_p (tar_super_t *archive, struct tar_stat_info *st)
 {
     struct tar_sparse_file file;
 
@@ -744,7 +744,7 @@ tar_sparse_member_p (tar_super_t * archive, struct tar_stat_info * st)
 /* --------------------------------------------------------------------------------------------- */
 
 gboolean
-tar_sparse_fixup_header (tar_super_t * archive, struct tar_stat_info * st)
+tar_sparse_fixup_header (tar_super_t *archive, struct tar_stat_info *st)
 {
     struct tar_sparse_file file;
 
@@ -758,7 +758,7 @@ tar_sparse_fixup_header (tar_super_t * archive, struct tar_stat_info * st)
 /* --------------------------------------------------------------------------------------------- */
 
 enum dump_status
-tar_sparse_skip_file (tar_super_t * archive, struct tar_stat_info *st)
+tar_sparse_skip_file (tar_super_t *archive, struct tar_stat_info *st)
 {
     gboolean rc = TRUE;
     struct tar_sparse_file file;

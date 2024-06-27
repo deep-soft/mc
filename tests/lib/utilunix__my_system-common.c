@@ -1,7 +1,7 @@
 /*
    lib - common code for testing lib/utilinux:my_system() function
 
-   Copyright (C) 2013-2023
+   Copyright (C) 2013-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -42,7 +42,7 @@ static int sigemptyset__return_value = 0;
 
 /* @Mock */
 int
-sigemptyset (sigset_t * set)
+sigemptyset (sigset_t *set)
 {
     sigemptyset_set__captured = set;
     return sigemptyset__return_value;

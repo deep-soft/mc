@@ -1,7 +1,7 @@
 /*
    User Menu implementation
 
-   Copyright (C) 1994-2023
+   Copyright (C) 1994-2024
    Free Software Foundation, Inc.
 
    Written by:
@@ -86,20 +86,24 @@ static char *menu = NULL;
 static char *
 strip_ext (char *ss)
 {
-    char *s = ss;
+    char *s;
     char *e = NULL;
 
-    while (*s != '\0')
+    if (ss == NULL)
+        return NULL;
+
+    for (s = ss; *s != '\0'; s++)
     {
         if (*s == '.')
             e = s;
         if (IS_PATH_SEP (*s) && e != NULL)
             e = NULL;           /* '.' in *directory* name */
-        s++;
     }
+
     if (e != NULL)
         *e = '\0';
-    return ss;
+
+    return (*ss == '\0' ? NULL : ss);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -167,7 +171,7 @@ extract_arg (char *p, char *arg, int size)
    specified in argument. */
 
 static gboolean
-test_type (WPanel * panel, char *arg)
+test_type (WPanel *panel, char *arg)
 {
     int result = 0;             /* False by default */
     mode_t st_mode;
@@ -222,7 +226,7 @@ test_type (WPanel * panel, char *arg)
    p. Returns the point after condition. */
 
 static char *
-test_condition (const Widget * edit_widget, char *p, gboolean * condition)
+test_condition (const Widget *edit_widget, char *p, gboolean *condition)
 {
     char arg[256];
     const mc_search_type_t search_type = easy_patterns ? MC_SEARCH_T_GLOB : MC_SEARCH_T_REGEX;
@@ -366,7 +370,7 @@ debug_out (char *start, char *end, gboolean condition)
    the point just before the end of line. */
 
 static char *
-test_line (const Widget * edit_widget, char *p, gboolean * result)
+test_line (const Widget *edit_widget, char *p, gboolean *result)
 {
     char operator;
 
@@ -432,7 +436,7 @@ test_line (const Widget * edit_widget, char *p, gboolean * result)
 /** FIXME: recode this routine on version 3.0, it could be cleaner */
 
 static void
-execute_menu_command (const Widget * edit_widget, const char *commands, gboolean show_prompt)
+execute_menu_command (const Widget *edit_widget, const char *commands, gboolean show_prompt)
 {
     FILE *cmd_file;
     int cmd_file_fd;
@@ -501,8 +505,11 @@ execute_menu_command (const Widget * edit_widget, const char *commands, gboolean
                     char *tmp;
 
                     tmp = name_quote (parameter, FALSE);
-                    fputs (tmp, cmd_file);
-                    g_free (tmp);
+                    if (tmp != NULL)
+                    {
+                        fputs (tmp, cmd_file);
+                        g_free (tmp);
+                    }
                 }
                 else
                     fputs (parameter, cmd_file);
@@ -528,8 +535,11 @@ execute_menu_command (const Widget * edit_widget, const char *commands, gboolean
                 char *text;
 
                 text = expand_format (edit_widget, *commands, do_quote);
-                fputs (text, cmd_file);
-                g_free (text);
+                if (text != NULL)
+                {
+                    fputs (text, cmd_file);
+                    g_free (text);
+                }
             }
         }
         else if (*commands == '%')
@@ -748,7 +758,7 @@ check_format_var (const char *p, char **v)
 /* --------------------------------------------------------------------------------------------- */
 
 char *
-expand_format (const Widget * edit_widget, char c, gboolean do_quote)
+expand_format (const Widget *edit_widget, char c, gboolean do_quote)
 {
     WPanel *panel = NULL;
     char *(*quote_func) (const char *, gboolean);
@@ -779,7 +789,7 @@ expand_format (const Widget * edit_widget, char c, gboolean do_quote)
             else
             {
                 if (get_other_type () != view_listing)
-                    return g_strdup ("");
+                    return NULL;
                 panel = other_panel;
             }
 
@@ -800,7 +810,7 @@ expand_format (const Widget * edit_widget, char c, gboolean do_quote)
 
     default:
         /* other modes don't use formats */
-        return g_strdup ("");
+        return NULL;
     }
 
     if (do_quote)
@@ -822,16 +832,13 @@ expand_format (const Widget * edit_widget, char c, gboolean do_quote)
     case 'd':
         {
             const char *cwd;
-            char *qstr;
 
             if (panel != NULL)
                 cwd = vfs_path_as_str (panel->cwd_vpath);
             else
                 cwd = vfs_get_current_dir ();
 
-            qstr = quote_func (cwd, FALSE);
-
-            result = qstr;
+            result = quote_func (cwd, FALSE);
             goto ret;
         }
     case 'c':
@@ -914,16 +921,14 @@ expand_format (const Widget * edit_widget, char c, gboolean do_quote)
     case 't':
     case 'u':
         {
-            GString *block;
+            GString *block = NULL;
             int i;
 
             if (panel == NULL)
             {
-                result = g_strdup ("");
+                result = NULL;
                 goto ret;
             }
-
-            block = g_string_sized_new (16);
 
             for (i = 0; i < panel->dir.len; i++)
                 if (panel->dir.list[i].f.marked != 0)
@@ -931,14 +936,22 @@ expand_format (const Widget * edit_widget, char c, gboolean do_quote)
                     char *tmp;
 
                     tmp = quote_func (panel->dir.list[i].fname->str, FALSE);
-                    g_string_append (block, tmp);
-                    g_string_append_c (block, ' ');
-                    g_free (tmp);
+                    if (tmp != NULL)
+                    {
+                        if (block == NULL)
+                            block = g_string_new_take (tmp);
+                        else
+                        {
+                            g_string_append (block, tmp);
+                            g_free (tmp);
+                        }
+                        g_string_append_c (block, ' ');
+                    }
 
                     if (c_lc == 'u')
                         do_file_mark (panel, i, 0);
                 }
-            result = g_string_free (block, FALSE);
+            result = block == NULL ? NULL : g_string_free (block, block->len == 0);
             goto ret;
         }                       /* sub case block */
     default:
@@ -958,7 +971,7 @@ expand_format (const Widget * edit_widget, char c, gboolean do_quote)
  */
 
 gboolean
-user_menu_cmd (const Widget * edit_widget, const char *menu_file, int selected_entry)
+user_menu_cmd (const Widget *edit_widget, const char *menu_file, int selected_entry)
 {
     char *p;
     char *data, **entries;
